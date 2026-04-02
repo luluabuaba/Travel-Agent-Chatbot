@@ -1,0 +1,9 @@
+openai
+streamlit
+wikipedia 
+google-auth 
+google-auth-oauthlib 
+google-api-python-client
+dotenv
+serpapi
+google-search-results

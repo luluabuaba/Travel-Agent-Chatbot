@@ -1,0 +1,94 @@
+# Travel Agent Bot - Test Cases
+
+**Test Case 01**
+Description: Basic destination and date input.
+User Input: I want to go to Paris in July 2025.
+Expected Behavior:
+  - Wikipedia tool is invoked with "Paris"
+  - Destination information is retrieved and displayed
+  - Outbound date parsed as "2025-07-01"
+  - Activity scheduled via Calendar Tool for Paris in July 2025
+  - No origin provided; Flight Tool should not be invoked
+
+**Test Case 02**
+Description: Full trip details with origin, destination, and outbound date.
+User Input: From New York to Tokyo on 2025-12-15.
+Expected Behavior:
+  - Origin: New York
+  - Destination: Tokyo
+  - Date: 2025-12-15
+  - Flight Tool is invoked
+  - Wikipedia tool invoked for Tokyo
+  - Activity scheduled in Tokyo for 2025-12-15
+
+**Test Case 03**
+Description: Round-trip query.
+User Input: From Los Angeles to Rome on 2025-10-01, return 2025-10-15.
+Expected Behavior:
+  - Round-trip flight fetched (LAX to Rome and return)
+  - Destination info about Rome retrieved
+  - Activities scheduled in Rome starting 2025-10-01
+
+**Test Case 04**
+Description: Pure question query (Wikipedia only).
+User Input: What can I do in Istanbul?
+Expected Behavior:
+  - Input classified as question
+  - Wikipedia Tool used to fetch activities and points of interest in Istanbul
+  - No flight or calendar interaction unless explicitly prompted
+
+**Test Case 05**
+Description: Incomplete information.
+User Input: To Rome
+Expected Behavior:
+  - Destination parsed as "Rome"
+  - Missing origin and date are identified
+  - Assistant prompts user to clarify missing details
+
+**Test Case 06**
+Description: Unsafe input handling.
+User Input: I hate everyone.
+Expected Behavior:
+  - Moderation tool flags input
+  - No tools are executed
+  - Assistant informs user that the input was flagged as inappropriate
+
+**Test Case 07**
+Description: Missing SERPAPI key - flight query.
+Condition: Environment variable SERPAPI_KEY is not set
+User Input: From Toronto to Barcelona on 2025-08-01
+Expected Behavior:
+  - Attempt to invoke Flight Tool fails gracefully
+  - User is informed that flight data is temporarily unavailable
+
+**Test Case 08**
+Description: Invalid date formatting for calendar scheduling.
+User Input: Schedule something fun in Cairo on 2025-13-40.
+Expected Behavior:
+  - Calendar tool rejects date format
+  - Assistant prompts user for a valid date format
+
+**Test Case 09**
+Description: Ambiguous location input.
+User Input: I'm heading to Paris next spring.
+Expected Behavior:
+  - Assistant attempts to resolve "Paris" (e.g., Paris, France vs. Paris, Texas)
+  - If ambiguity remains, assistant asks for clarification
+  - Spring interpreted as March–May (approximate range)
+
+**Test Case 10**
+Description: Full travel plan with interests and budget.
+User Input: From Chicago to Kyoto in April 2026. I love food, temples, and nature. Budget is $2000.
+Expected Behavior:
+  - Origin: Chicago; Destination: Kyoto; Date: 2026-04-01 (approx.)
+  - Interests extracted: food, temples, nature
+  - Budget captured
+  - Flights, destination info, and activity suggestions provided
+
+**Test Case 11**
+Description: Multi-destination itinerary in a single message.
+User Input: Fly me from Toronto to Barcelona in May, and then to Rome in June.
+Expected Behavior:
+  - First trip parsed: Toronto to Barcelona in May
+  - Second trip is recognized but deferred or user prompted to split inputs
+  - Assistant may respond: “Let’s plan your trip to Barcelona first—shall we continue with Rome after?”
