@@ -45,11 +45,13 @@ If unsafe or off-topic input is detected, it politely declines:
 Your messages are remembered during the chat session only. The assistant builds its responses based on the full conversation context.
 
 
-Project Outline
-Task & User Focus
+## Project Outline
+
+### Task & User Focus
+
 The bot helps users gather information and inspiration for travel by answering questions and suggesting activities. It is not a booking agent or itinerary builder (yet), but supports early planning and discovery.
 
-Scope of Chatbot Responses
+### Scope of Chatbot Responses
 
 Destination facts, travel tips, site recommendations
 
